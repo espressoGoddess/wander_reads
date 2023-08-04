@@ -11,5 +11,5 @@ export default function Shelf() {
       description={item.description}
     />
   ));
-  return <section>{formattedBooks}</section>;
+  return <section>{formattedBooks.length ? formattedBooks : null}</section>;
 }
