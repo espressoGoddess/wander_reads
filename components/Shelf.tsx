@@ -9,38 +9,37 @@ import {
   manSearchAuthor,
   manSearchByWorks,
 } from "../data/manSearch";
-import manSearchCover from "../data/manSearch.jpeg";
-import mrFoxCover from "../data/mrFox.jpeg";
 
 export default function Shelf() {
   const book1 = {
     isbn: mrFoxBookByISBN,
     author: mrFoxAuthor,
     works: mrFoxBookByWorks,
-    cover: mrFoxCover,
+    cover: `https://covers.openlibrary.org/b/id/${mrFoxBookByISBN.covers[0]}-L.jpg`,
   };
   const book2 = {
     isbn: manSearchByISBN,
     author: manSearchAuthor,
     works: manSearchByWorks,
-    cover: manSearchCover,
+    cover: `https://covers.openlibrary.org/b/id/${manSearchByISBN.covers[0]}-L.jpg`,
   };
   const book3 = {
     isbn: mrFoxBookByISBN,
     author: mrFoxAuthor,
     works: mrFoxBookByWorks,
-    cover: mrFoxCover,
+    cover: `https://covers.openlibrary.org/b/id/${mrFoxBookByISBN.covers[0]}-L.jpg`,
   };
   const book4 = {
     isbn: manSearchByISBN,
     author: manSearchAuthor,
     works: manSearchByWorks,
-    cover: manSearchCover,
+    cover: `https://covers.openlibrary.org/b/id/${manSearchByISBN.covers[0]}-L.jpg`,
   };
   const books = [book1, book2, book3, book4];
 
   const formattedBooks = books.map((item) => (
     <Book
+      key={item.isbn.key}
       ISBNInfo={item.isbn}
       cover={item.cover}
       author={item.author}
