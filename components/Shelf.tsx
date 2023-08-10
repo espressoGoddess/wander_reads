@@ -9,7 +9,13 @@ export default function Shelf() {
       cover={item.cover}
       author={item.author}
       description={item.description}
+      rating={item.rating}
     />
   ));
-  return <section>{formattedBooks.length ? formattedBooks : null}</section>;
+  return (
+    <section>
+      <h2>Want to read books</h2>
+      {formattedBooks.length ? formattedBooks : null}
+    </section>
+  );
 }
