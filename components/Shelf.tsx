@@ -10,6 +10,7 @@ export default function Shelf() {
       author={item.author}
       description={item.description}
       rating={item.rating}
+      review={item.review}
     />
   ));
   return (
