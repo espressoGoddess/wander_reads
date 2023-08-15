@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 
 export default function Search() {
   const router = useRouter();
-  // on submit - validate that either isbn or author/title is filled out
-  // if isbn has text, make sure they are valid with regex
-  // then call api with isbn
 
   const [isbn, setIsbn] = useState("");
   const [searchTerm, setSearchTerm] = useState({ type: "", value: "" });
@@ -19,8 +16,16 @@ export default function Search() {
 
       if (isbnRegex.test(isbn)) {
         router.push(`/results?isbn=${encodeURIComponent(isbn)}`);
+      } else {
+        console.log("isbn validation results:", isbnRegex.test(isbn));
       }
+    } else if (searchTerm.type && searchTerm.value) {
+      router.push(
+        `/results?${searchTerm.type}=${encodeURIComponent(searchTerm.value)}`
+      );
     }
+    //need some sort of error handling for if type & value are not both present & if isbn is not valid
+    //need to reset input fields
   };
 
   return (
@@ -28,7 +33,6 @@ export default function Search() {
       <form onSubmit={(e) => handleSubmit(e)} className="w-11/12 m-6">
         <Input
           label="ISBN"
-          // type="number"
           id="isbn"
           name="isbn"
           value={isbn}
