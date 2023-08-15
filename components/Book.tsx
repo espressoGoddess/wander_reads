@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Rating from "./Rating";
 export default function Book({
-  title,
-  cover,
-  author,
-  description,
+  title = "No title found",
+  cover = "http://lgimages.s3.amazonaws.com/nc-md.gif",
+  author = "author not found",
+  description = "description not found",
   rating = 0,
   review = "",
 }) {
