@@ -14,8 +14,9 @@ export default function Results() {
       loadDataByAuthor(query.author).then((data) => {
         setBookData(data);
       });
+    } else if (query?.title) {
+      loadDataByTitle(query.title).then((data) => setBookData(data));
     }
-    // else if (query?.title)
     //need message if none found
   }, [query]);
 
@@ -48,10 +49,29 @@ async function loadDataByAuthor(author) {
   const data2 = await res2.json();
   const res3 = await fetch(`https://openlibrary.org${data2.key}/works.json`);
   const data3 = await res3.json();
-
   const formattedData = formatDataFromAuthor(data3.entries, author);
-  //need to filter out duplicates based on title
+  //need to filter out duplicates based on title?
   return formattedData;
+}
+
+async function loadDataByTitle(title) {
+  const res = await fetch(`https://openlibrary.org/search.json?title=${title}`);
+  const data = await res.json();
+  const books = [];
+  for (let i = 0; i < Math.min(data.docs.length, 20); i++) {
+    const result = await fetch(
+      `https://openlibrary.org${data.docs[i].key}.json`
+    );
+    const bookData = await result.json();
+    books.push({
+      title: bookData.title,
+      cover: `https://covers.openlibrary.org/b/id/${data.docs[i].cover_i}-L.jpg`,
+      author: data.docs[i].author_name,
+      description: bookData.description?.value,
+      id: data.docs[i].key,
+    });
+  }
+  return books;
 }
 
 function formatDataFromIsbn(data1, data2, data3) {

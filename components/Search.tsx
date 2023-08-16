@@ -47,7 +47,6 @@ export default function Search() {
                   ...prevState,
                   type: value,
                 }));
-                console.log(searchTerm);
               }}
               value={searchTerm.type}
               variant="outlined"
