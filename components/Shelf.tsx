@@ -1,8 +1,7 @@
 import Book from "./Book";
-import { toReadBooks } from "../data/toReadShelfData";
 
-export default function Shelf() {
-  const formattedBooks = toReadBooks.map((item) => (
+export default function Shelf({ books }) {
+  const formattedBooks = books.map((item) => (
     <Book
       key={item.id}
       title={item.title}
@@ -10,12 +9,8 @@ export default function Shelf() {
       author={item.author}
       description={item.description}
       rating={item.rating}
+      review={item.review}
     />
   ));
-  return (
-    <section>
-      <h2>Want to read books</h2>
-      {formattedBooks.length ? formattedBooks : null}
-    </section>
-  );
+  return <section>{formattedBooks.length ? formattedBooks : null}</section>;
 }

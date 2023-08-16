@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Rating from "./Rating";
 export default function Book({
-  title,
-  cover,
-  author,
-  description,
+  title = "No title found",
+  cover = "http://lgimages.s3.amazonaws.com/nc-md.gif",
+  author = "author not found",
+  description = "description not found",
   rating = 0,
   review = "",
 }) {
@@ -21,16 +21,20 @@ export default function Book({
         <div className="flex mx-4 w-full flex-col">
           <h3 className="mt-4 text-2xl">{title}</h3>
           <p className="mx-2 mt-6">By {author}</p>
-          <div className="flex mt-3">
-            <Rating index={0} rating={rating} />
-            <Rating index={1} rating={rating} />
-            <Rating index={2} rating={rating} />
-            <Rating index={3} rating={rating} />
-            <Rating index={4} rating={rating} />
-          </div>
+          {rating ? (
+            <div className="flex mt-3">
+              <Rating index={0} rating={rating} />
+              <Rating index={1} rating={rating} />
+              <Rating index={2} rating={rating} />
+              <Rating index={3} rating={rating} />
+              <Rating index={4} rating={rating} />
+            </div>
+          ) : null}
         </div>
       </div>
-      <p className="mt-4 h-24 line-clamp-4 text-justify">{description}</p>
+      <p className="mt-4 h-24 line-clamp-4 text-justify">
+        {review ? review : description}
+      </p>
     </article>
   );
 }

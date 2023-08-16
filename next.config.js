@@ -8,6 +8,12 @@ module.exports = {
         port: "",
         pathname: "/b/id/**",
       },
+      {
+        protocol: "http",
+        hostname: "lgimages.s3.amazonaws.com",
+        port: "",
+        pathname: "/nc-md.gif",
+      },
     ],
   },
 };
