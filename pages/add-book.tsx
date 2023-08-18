@@ -58,10 +58,7 @@ export default function AddBook() {
             </div>
             <Textarea
               value={review}
-              onChange={(e) => {
-                setReview(e.target.value);
-                console.log(review);
-              }}
+              onChange={(e) => setReview(e.target.value)}
               label="What did you think about this book?"
             />
           </div>
