@@ -4,7 +4,7 @@ export default function Book({
   title = "No title found",
   cover = "http://lgimages.s3.amazonaws.com/nc-md.gif",
   author = "author not found",
-  description = "description not found",
+  description = "",
   rating = 0,
   review = "",
 }) {
@@ -32,7 +32,11 @@ export default function Book({
           ) : null}
         </div>
       </div>
-      <p className="mt-4 h-24 line-clamp-4 text-justify">
+      <p
+        className={
+          review || description ? `mt-4 h-24 line-clamp-4 text-justify` : ""
+        }
+      >
         {review ? review : description}
       </p>
     </article>

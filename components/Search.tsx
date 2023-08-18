@@ -71,7 +71,7 @@ export default function Search() {
           />
         </div>
         <Button className="mt-6" variant="outlined" ripple={true} type="submit">
-          Submit
+          Find Book
         </Button>
       </form>
     </section>
