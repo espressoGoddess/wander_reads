@@ -1,7 +1,5 @@
 import Search from "@/components/Search";
-import Shelf from "@/components/Shelf";
 import Image from "next/image";
-
 export default function Home() {
   return (
     <>
