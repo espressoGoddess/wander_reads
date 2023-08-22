@@ -3,7 +3,7 @@ import Book from "./Book";
 import { BookContext } from "@/context/book";
 import { useContext } from "react";
 
-export default function Shelf({ books }) {
+export default function Shelf({ books, type, heading }) {
   const [book, setBook] = useContext(BookContext);
   const router = useRouter();
 
@@ -12,7 +12,11 @@ export default function Shelf({ books }) {
       key={item.id}
       onClick={() => {
         setBook(item);
-        router.push(`/add-book?${item.title}&${item.author}`);
+        if (type === "search") {
+          router.push(`/add-book?${item.title}&${item.author}`);
+        } else {
+          router.push(`/book-details?${item.title}&${item.author}`);
+        }
       }}
     >
       <Book
@@ -27,6 +31,7 @@ export default function Shelf({ books }) {
   ));
   return (
     <section>
+      <h1 className="m-6">{heading}</h1>
       {formattedBooks.length ? (
         formattedBooks
       ) : (

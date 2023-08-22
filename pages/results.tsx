@@ -6,6 +6,7 @@ export default function Results() {
   const { query } = useRouter();
   const [bookData, setBookData] = useState(null);
   useEffect(() => {
+    console.log(query);
     if (query?.isbn) {
       loadDataByIsbn(query.isbn).then((data) => {
         setBookData([data]);
@@ -20,7 +21,13 @@ export default function Results() {
     //need message if none found
   }, [query]);
 
-  return bookData ? <Shelf books={bookData} /> : null;
+  return bookData ? (
+    <Shelf
+      books={bookData}
+      type={"search"}
+      heading={`Results for '${Object.values(query)}'`}
+    />
+  ) : null;
 }
 
 async function loadDataByIsbn(isbn) {
