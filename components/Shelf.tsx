@@ -25,5 +25,13 @@ export default function Shelf({ books }) {
       />
     </button>
   ));
-  return <section>{formattedBooks.length ? formattedBooks : null}</section>;
+  return (
+    <section>
+      {formattedBooks.length ? (
+        formattedBooks
+      ) : (
+        <p>You don't have any books on this shelf yet.</p>
+      )}
+    </section>
+  );
 }

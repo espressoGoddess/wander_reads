@@ -7,7 +7,7 @@ import Book from "@/components/Book";
 export default function AddBook() {
   const [shelf, setShelf] = useState(null);
   const [book] = useContext(BookContext);
-  const [sliderValue, setSliderValue] = useState(50);
+  const [rating, setRating] = useState(50);
   const [review, setReview] = useState("");
 
   const handleSubmit = () => {
@@ -46,15 +46,15 @@ export default function AddBook() {
                 <h2 className="mb-4">What would you rate this book?</h2>
                 <Slider
                   size="sm"
-                  defaultValue={50}
-                  value={sliderValue}
+                  // defaultValue={50}
+                  value={rating}
                   onChange={(e) => {
-                    setSliderValue(parseInt(e.target.value));
+                    setRating(parseInt(e.target.value));
                   }}
                   className="mb-8"
                 />
               </div>
-              <p>{Math.round(sliderValue / 10)}</p>
+              <p>{Math.round(rating / 10)}</p>
             </div>
             <Textarea
               value={review}
@@ -68,7 +68,7 @@ export default function AddBook() {
           variant="outlined"
           ripple={true}
           type="submit"
-          disabled={!shelf}
+          disabled={!shelf || (shelf === "already" && !review) || !rating}
         >
           Add book
         </Button>
