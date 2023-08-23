@@ -30,7 +30,7 @@ export default function Search() {
 
   return (
     <section>
-      <form onSubmit={(e) => handleSubmit(e)} className="w-11/12 m-6">
+      <form onSubmit={(e) => handleSubmit(e)} className="w-11/12 m-4 mt-14">
         <Input
           label="ISBN"
           id="isbn"
@@ -70,7 +70,12 @@ export default function Search() {
             }
           />
         </div>
-        <Button className="mt-6" variant="outlined" ripple={true} type="submit">
+        <Button
+          className="mt-10"
+          variant="outlined"
+          ripple={true}
+          type="submit"
+        >
           Find Book
         </Button>
       </form>
