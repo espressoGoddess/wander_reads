@@ -1,16 +1,20 @@
-import { createContext, useContext, useState } from "react";
+import { BookType } from "@/types/types";
+import { createContext } from "react";
 
-export const BookContext = createContext(null);
+export const BookContext = createContext({
+  book: null as BookType | null,
+  setBook: (book: BookType) => {},
+});
 
-export function BookInfoProvider({ children }) {
-  const [book, setBook] = useState(null);
-  return (
-    <BookContext.Provider value={[book, setBook]}>
-      {children}
-    </BookContext.Provider>
-  );
-}
+// export function BookInfoProvider({ children }: { children: React.ReactNode }) {
+//   const [book, setBook] = useState({});
+//   return (
+//     <BookContext.Provider value={{book, setBook}}>
+//       {children}
+//     </BookContext.Provider>
+//   );
+// }
 
-export function useBookContext() {
-  return useContext(BookContext);
-}
+// export function useBookContext() {
+//   return useContext(BookContext);
+// }

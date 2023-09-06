@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 
 export default function Results() {
   const { query } = useRouter();
-  const [bookData, setBookData] = useState(null);
+  const [bookData, setBookData] = useState([]);
   useEffect(() => {
-    console.log(query);
     if (query?.isbn) {
       loadDataByIsbn(query.isbn).then((data) => {
         setBookData([data]);
@@ -21,7 +20,7 @@ export default function Results() {
     //need message if none found
   }, [query]);
 
-  return bookData ? (
+  return bookData.length ? (
     <Shelf
       books={bookData}
       type={"search"}

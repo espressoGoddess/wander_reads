@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Rating from "./Rating";
+import { BookType } from "@/types/types";
+
 export default function Book({
   title = "No title found",
   cover = "http://lgimages.s3.amazonaws.com/nc-md.gif",
@@ -7,7 +9,7 @@ export default function Book({
   description = "",
   rating = 0,
   review = "",
-}) {
+}: Partial<BookType>) {
   return (
     <article className="m-5 border rounded-sm p-4 flex flex-col">
       <div className="flex">

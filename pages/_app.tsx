@@ -1,14 +1,19 @@
 // These styles apply to every route in the application
 import "@/styles/globals.css";
 import Layout from "../components/layout";
-import { BookInfoProvider } from "@/context/book";
+import { BookContext } from "@/context/book";
+import { AppProps } from "next/app";
+import { useState } from "react";
+import { BookType } from "@/types/types";
+type BookContextType = BookType | null;
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
+  const [book, setBook] = useState(null as BookContextType);
   return (
-    <BookInfoProvider>
+    <BookContext.Provider value={{ book, setBook }}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </BookInfoProvider>
+    </BookContext.Provider>
   );
 }

@@ -16,4 +16,7 @@ module.exports = {
       },
     ],
   },
+  eslint: {
+    dirs: ["components", "pages", "context", "types"],
+  },
 };
