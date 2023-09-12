@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import logo from "../public/logo.svg";
 import { Nav } from "./Nav";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <>

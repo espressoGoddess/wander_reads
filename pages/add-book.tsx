@@ -5,8 +5,8 @@ import { useContext } from "react";
 import Book from "@/components/Book";
 
 export default function AddBook() {
-  const [shelf, setShelf] = useState(null);
-  const [book] = useContext(BookContext);
+  const [shelf, setShelf] = useState("");
+  const { book } = useContext(BookContext);
   const [rating, setRating] = useState(50);
   const [review, setReview] = useState("");
 
@@ -14,7 +14,7 @@ export default function AddBook() {
     console.log;
   };
 
-  return (
+  return book ? (
     <section className="m-6">
       <h1 className="text-xl">Add book to your shelf</h1>
       <Book
@@ -46,7 +46,6 @@ export default function AddBook() {
                 <h2 className="mb-4">What would you rate this book?</h2>
                 <Slider
                   size="sm"
-                  // defaultValue={50}
                   value={rating}
                   onChange={(e) => {
                     setRating(parseInt(e.target.value));
@@ -74,5 +73,11 @@ export default function AddBook() {
         </Button>
       </form>
     </section>
+  ) : (
+    <NoBookAvailable />
   );
+}
+
+function NoBookAvailable() {
+  return <p>Pls try again</p>;
 }

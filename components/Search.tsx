@@ -7,7 +7,7 @@ export default function Search() {
 
   const [isbn, setIsbn] = useState("");
   const [searchTerm, setSearchTerm] = useState({ type: "", value: "" });
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (isbn) {
       const isbnRegex =
@@ -45,7 +45,7 @@ export default function Search() {
               onChange={(value) => {
                 setSearchTerm((prevState) => ({
                   ...prevState,
-                  type: value,
+                  type: value ?? "",
                 }));
               }}
               value={searchTerm.type}

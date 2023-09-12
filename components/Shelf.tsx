@@ -2,9 +2,12 @@ import { useRouter } from "next/router";
 import Book from "./Book";
 import { BookContext } from "@/context/book";
 import { useContext } from "react";
+import { BookType } from "@/types/types";
 
-export default function Shelf({ books, type, heading }) {
-  const [book, setBook] = useContext(BookContext);
+type ShelfProps = { books: BookType[]; type: string; heading: string };
+
+export default function Shelf({ books, type, heading }: ShelfProps) {
+  const { book, setBook } = useContext(BookContext);
   const router = useRouter();
 
   const formattedBooks = books.map((item) => (
@@ -12,6 +15,7 @@ export default function Shelf({ books, type, heading }) {
       key={item.id}
       onClick={() => {
         setBook(item);
+        console.log(item);
         if (type === "search") {
           router.push(`/add-book?${item.title}&${item.author}`);
         } else {
@@ -35,7 +39,8 @@ export default function Shelf({ books, type, heading }) {
       {formattedBooks.length ? (
         formattedBooks
       ) : (
-        <p>You don't have any books on this shelf yet.</p>
+        <p>You don&apos;t have any books on this shelf yet.</p>
+        //this is showing up after searching for a book and the fetch is taking place (loading) momentarily before
       )}
     </section>
   );
