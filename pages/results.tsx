@@ -1,20 +1,21 @@
 import Shelf from "@/components/Shelf";
 import { useRouter } from "next/router";
+import { BookType } from "@/types/types";
 import { useEffect, useState } from "react";
 
 export default function Results() {
   const { query } = useRouter();
   const [bookData, setBookData] = useState([]);
   useEffect(() => {
-    if (query?.isbn) {
+    if (typeof query?.isbn === "string") {
       loadDataByIsbn(query.isbn).then((data) => {
         setBookData([data]);
       });
-    } else if (query?.author) {
+    } else if (typeof query?.author === "string") {
       loadDataByAuthor(query.author).then((data) => {
         setBookData(data);
       });
-    } else if (query?.title) {
+    } else if (typeof query?.title === "string") {
       loadDataByTitle(query.title).then((data) => setBookData(data));
     }
     //need message if none found
@@ -29,7 +30,7 @@ export default function Results() {
   ) : null;
 }
 
-async function loadDataByIsbn(isbn) {
+async function loadDataByIsbn(isbn: string) {
   const res = await fetch(`https://openlibrary.org/isbn/${isbn}.json`);
   const data = await res.json();
   const res2 = await fetch(`https://openlibrary.org${data.works[0].key}.json`);
@@ -44,7 +45,7 @@ async function loadDataByIsbn(isbn) {
   return formatDataFromIsbn(data, data2, data3);
 }
 
-async function loadDataByAuthor(author) {
+async function loadDataByAuthor(author: string) {
   const res = await fetch(
     `https://openlibrary.org/search/authors.json?q=${author}`
   );
@@ -60,7 +61,7 @@ async function loadDataByAuthor(author) {
   return formattedData;
 }
 
-async function loadDataByTitle(title) {
+async function loadDataByTitle(title: string) {
   const res = await fetch(`https://openlibrary.org/search.json?title=${title}`);
   const data = await res.json();
   const books = [];
@@ -80,7 +81,7 @@ async function loadDataByTitle(title) {
   return books;
 }
 
-function formatDataFromIsbn(data1, data2, data3) {
+function formatDataFromIsbn(data1: any, data2: any, data3: any) {
   return {
     author: data3.name,
     title: data1.title,
@@ -92,7 +93,7 @@ function formatDataFromIsbn(data1, data2, data3) {
   };
 }
 
-function formatDataFromAuthor(data, author) {
+function formatDataFromAuthor(data, author: string) {
   return data.map((item) => ({
     author,
     title: item.title,

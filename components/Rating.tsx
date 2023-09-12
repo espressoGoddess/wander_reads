@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { RatingProps } from "@/types/types";
+
+interface RatingProps {
+  rating: number;
+  index: number;
+}
+
 export default function Rating({ index, rating }: RatingProps) {
   let star = rating - index * 2;
   if (star > 2) {
