@@ -1,12 +1,13 @@
 import Shelf from "@/components/Shelf";
-import { toReadBooks } from "../../data/toReadShelfData.js";
+import { useEffect, useState } from "react";
+import { getBooks } from "./already-read";
 
 export default function WantToRead() {
-  return (
-    <Shelf
-      books={toReadBooks}
-      heading={"Books You Want to Read"}
-      type={"want"}
-    />
-  );
+  const [books, setBooks] = useState(null);
+  useEffect(() => {
+    getBooks("want_to_read").then((data) => setBooks(data));
+  }, []);
+  return books ? (
+    <Shelf books={books} heading={"Books You Want to Read"} type={"want"} />
+  ) : null;
 }
