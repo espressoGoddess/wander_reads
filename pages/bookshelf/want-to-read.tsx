@@ -8,6 +8,6 @@ export default function WantToRead() {
     getBooks("want_to_read").then((data) => setBooks(data));
   }, []);
   return books ? (
-    <Shelf books={books} heading={"Books You Want to Read"} type={"want"} />
+    <Shelf books={books} shelfType={"Books You Want to Read"} />
   ) : null;
 }

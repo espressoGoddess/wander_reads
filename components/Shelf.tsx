@@ -1,41 +1,23 @@
-import { useRouter } from "next/router";
 import Book from "./Book";
-import { BookContext } from "@/context/book";
-import { useContext } from "react";
 import { BookType } from "@/types/types";
 
-type ShelfProps = { books: BookType[]; type: string; heading: string };
+type ShelfProps = { books: BookType[]; shelfType: string };
 
-export default function Shelf({ books, type, heading }: ShelfProps) {
-  const { setBook } = useContext(BookContext);
-  const router = useRouter();
-
+export default function Shelf({ books, shelfType }: ShelfProps) {
   const formattedBooks = books.map((item) => (
-    <button
+    <Book
       key={item.id}
-      onClick={() => {
-        setBook(item);
-        console.log(item);
-        if (type === "search") {
-          router.push(`/add-book?${item.title}&${item.author}`);
-        } else {
-          router.push(`/book-details?${item.title}&${item.author}`);
-        }
-      }}
-    >
-      <Book
-        title={item.title}
-        cover={item.cover}
-        author={item.author}
-        description={item.description}
-        rating={item.rating}
-        review={item.review}
-      />
-    </button>
+      title={item.title}
+      cover={item.cover}
+      author={item.author}
+      description={item.description}
+      rating={item.rating}
+      review={item.review}
+    />
   ));
   return (
     <section>
-      <h1 className="m-6">{heading}</h1>
+      <h1 className="m-6">{shelfType}</h1>
       {formattedBooks.length ? (
         formattedBooks
       ) : (

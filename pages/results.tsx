@@ -1,3 +1,4 @@
+import SearchResults from "@/components/SearchResults";
 import Shelf from "@/components/Shelf";
 import { SearchResult } from "@/types/types";
 import { useRouter } from "next/router";
@@ -14,13 +15,7 @@ export default function Results() {
     ).then((data) => setBookData(data));
   }, [query]);
 
-  return bookData.length ? (
-    <Shelf
-      books={bookData as any}
-      type={"search"}
-      heading={`Results for '${Object.values(query)}'`}
-    />
-  ) : null;
+  return bookData.length ? <SearchResults results={bookData} /> : null;
 }
 
 async function searchAPI(isbn: string, author: string, title: string) {
