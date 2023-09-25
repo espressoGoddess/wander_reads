@@ -11,4 +11,4 @@ Supported by [WanderReads API](https://github.com/espressogoddess/wander_reads_a
 1. Start the dev server: `npm run dev`
 1. Go to [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
- Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ Next.js [GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
