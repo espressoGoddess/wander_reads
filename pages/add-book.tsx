@@ -26,7 +26,7 @@ export default function AddBook() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addBookToShelf(shelf, book).then((data) => {
+    addBookToShelf(shelf, book, review, rating).then((data) => {
       console.log(data);
       router.push(getPageUrl(shelf));
     });
@@ -100,11 +100,24 @@ function NoBookAvailable() {
   return <p>Pls try again</p>;
 }
 
-async function addBookToShelf(shelf: string, book: BookType) {
-  const res = await fetch(`http://localhost:3001/api/v1/add-book`, {
+async function addBookToShelf(
+  shelf: string,
+  book: BookType,
+  review?: string,
+  rating?: number
+) {
+  const res = await fetch("http://localhost:3001/api/v1/bookshelf", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ book }),
+    body: JSON.stringify({
+      author: book.author,
+      title: book.title,
+      shelfType: shelf,
+      cover: book.cover,
+      description: book.description,
+      rating: rating,
+      review: review,
+    }),
   });
   const data = await res.json();
   return data;

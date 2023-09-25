@@ -36,7 +36,7 @@ export default function Book({
       </div>
       <p
         className={
-          review || description ? `mt-4 h-24 line-clamp-4 text-justify` : ""
+          review || description ? "mt-4 h-24 line-clamp-4 text-justify" : ""
         }
       >
         {review ? review : description}
