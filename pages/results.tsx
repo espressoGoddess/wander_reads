@@ -1,10 +1,11 @@
 import Shelf from "@/components/Shelf";
+import { SearchResult } from "@/types/types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Results() {
   const { query } = useRouter();
-  const [bookData, setBookData] = useState([]);
+  const [bookData, setBookData] = useState<SearchResult[]>([]);
   useEffect(() => {
     searchAPI(
       query?.isbn as string,
@@ -15,7 +16,7 @@ export default function Results() {
 
   return bookData.length ? (
     <Shelf
-      books={bookData}
+      books={bookData as any}
       type={"search"}
       heading={`Results for '${Object.values(query)}'`}
     />

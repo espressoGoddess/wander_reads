@@ -1,8 +1,9 @@
 import Shelf from "@/components/Shelf";
+import { BookType } from "@/types/types";
 import { useEffect, useState } from "react";
 
 export default function AlreadyRead() {
-  const [books, setBooks] = useState(null);
+  const [books, setBooks] = useState<BookType[] | null>(null);
   useEffect(() => {
     getBooks("already_read").then((data) => setBooks(data));
   }, []);

@@ -7,7 +7,7 @@ import { BookType } from "@/types/types";
 type ShelfProps = { books: BookType[]; type: string; heading: string };
 
 export default function Shelf({ books, type, heading }: ShelfProps) {
-  const { book, setBook } = useContext(BookContext);
+  const { setBook } = useContext(BookContext);
   const router = useRouter();
 
   const formattedBooks = books.map((item) => (

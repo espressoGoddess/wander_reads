@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Radio, Button, Textarea, Slider } from "@material-tailwind/react";
 import { BookContext } from "@/context/book";
 import { useContext } from "react";
 import Book from "@/components/Book";
+import { BookType } from "@/types/types";
+import { useRouter } from "next/router";
+
+function getPageUrl(shelf) {
+  switch (shelf) {
+    case "already_read":
+      return "/bookshelf/already-read";
+    case "want_to_read":
+      return "/bookshelf/want-to-read";
+    default:
+      return "/404";
+  }
+}
 
 export default function AddBook() {
   const [shelf, setShelf] = useState("");
   const { book } = useContext(BookContext);
   const [rating, setRating] = useState(50);
   const [review, setReview] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = () => {
-    console.log;
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    addBookToShelf(shelf, book).then((data) => {
+      console.log(data);
+      router.push(getPageUrl(shelf));
+    });
   };
 
   return book ? (
@@ -30,16 +48,16 @@ export default function AddBook() {
             ripple={false}
             name="type"
             label="Already Read Shelf"
-            onChange={() => setShelf("already")}
+            onChange={() => setShelf("already_read")}
           />
           <Radio
             ripple={false}
             name="type"
             label="Want to Read Shelf"
-            onChange={() => setShelf("want")}
+            onChange={() => setShelf("want_to_read")}
           />
         </div>
-        {shelf === "already" ? (
+        {shelf === "already_read" ? (
           <div className="mt-6">
             <div className="flex justify-between items-center">
               <div className="w-4/5">
@@ -80,4 +98,14 @@ export default function AddBook() {
 
 function NoBookAvailable() {
   return <p>Pls try again</p>;
+}
+
+async function addBookToShelf(shelf: string, book: BookType) {
+  const res = await fetch(`http://localhost:3001/api/v1/add-book`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ book }),
+  });
+  const data = await res.json();
+  return data;
 }
