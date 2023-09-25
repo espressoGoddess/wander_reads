@@ -1,106 +1,34 @@
 import Shelf from "@/components/Shelf";
+import { SearchResult } from "@/types/types";
 import { useRouter } from "next/router";
-import { BookType } from "@/types/types";
 import { useEffect, useState } from "react";
 
 export default function Results() {
   const { query } = useRouter();
-  const [bookData, setBookData] = useState([]);
+  const [bookData, setBookData] = useState<SearchResult[]>([]);
   useEffect(() => {
-    if (typeof query?.isbn === "string") {
-      loadDataByIsbn(query.isbn).then((data) => {
-        setBookData([data]);
-      });
-    } else if (typeof query?.author === "string") {
-      loadDataByAuthor(query.author).then((data) => {
-        setBookData(data);
-      });
-    } else if (typeof query?.title === "string") {
-      loadDataByTitle(query.title).then((data) => setBookData(data));
-    }
-    //need message if none found
+    searchAPI(
+      query?.isbn as string,
+      query?.author as string,
+      query?.title as string
+    ).then((data) => setBookData(data));
   }, [query]);
 
   return bookData.length ? (
     <Shelf
-      books={bookData}
+      books={bookData as any}
       type={"search"}
       heading={`Results for '${Object.values(query)}'`}
     />
   ) : null;
 }
 
-async function loadDataByIsbn(isbn: string) {
-  const res = await fetch(`https://openlibrary.org/isbn/${isbn}.json`);
+async function searchAPI(isbn: string, author: string, title: string) {
+  const res = await fetch("http://localhost:3001/api/v1/search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ isbn, author, title }),
+  });
   const data = await res.json();
-  const res2 = await fetch(`https://openlibrary.org${data.works[0].key}.json`);
-  const data2 = await res2.json();
-  let res3, data3;
-  if (data2.authors) {
-    res3 = await fetch(
-      `https://openlibrary.org${data2.authors[0].author.key}.json`
-    );
-    data3 = await res3.json();
-  }
-  return formatDataFromIsbn(data, data2, data3);
-}
-
-async function loadDataByAuthor(author: string) {
-  const res = await fetch(
-    `https://openlibrary.org/search/authors.json?q=${author}`
-  );
-  const data = await res.json();
-  const res2 = await fetch(
-    `https://openlibrary.org/authors/${data.docs[0].key}.json`
-  );
-  const data2 = await res2.json();
-  const res3 = await fetch(`https://openlibrary.org${data2.key}/works.json`);
-  const data3 = await res3.json();
-  const formattedData = formatDataFromAuthor(data3.entries, author);
-  //need to filter out duplicates based on title?
-  return formattedData;
-}
-
-async function loadDataByTitle(title: string) {
-  const res = await fetch(`https://openlibrary.org/search.json?title=${title}`);
-  const data = await res.json();
-  const books = [];
-  for (let i = 0; i < Math.min(data.docs.length, 20); i++) {
-    const result = await fetch(
-      `https://openlibrary.org${data.docs[i].key}.json`
-    );
-    const bookData = await result.json();
-    books.push({
-      title: bookData.title,
-      cover: `https://covers.openlibrary.org/b/id/${data.docs[i].cover_i}-L.jpg`,
-      author: data.docs[i].author_name,
-      description: bookData.description?.value,
-      id: data.docs[i].key,
-    });
-  }
-  return books;
-}
-
-function formatDataFromIsbn(data1: any, data2: any, data3: any) {
-  return {
-    author: data3.name,
-    title: data1.title,
-    cover: data1.covers
-      ? `https://covers.openlibrary.org/b/id/${data1.covers[0]}-L.jpg`
-      : undefined,
-    description: data2.description?.value || data3.description?.value,
-    id: data1.key || data2.key || data3.key || Date.now(),
-  };
-}
-
-function formatDataFromAuthor(data, author: string) {
-  return data.map((item) => ({
-    author,
-    title: item.title,
-    cover: item.covers
-      ? `https://covers.openlibrary.org/b/id/${item.covers[0]}-L.jpg`
-      : undefined,
-    description: item.description?.value,
-    id: item.key || Date.now(),
-  }));
+  return data.data;
 }
