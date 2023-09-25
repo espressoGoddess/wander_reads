@@ -8,11 +8,7 @@ export default function AlreadyRead() {
     getBooks("already_read").then((data) => setBooks(data));
   }, []);
   return books ? (
-    <Shelf
-      books={books}
-      type={"already"}
-      heading={"Books You've Already Read"}
-    />
+    <Shelf books={books} shelfType={"Books You've Already Read"} />
   ) : null;
 }
 
