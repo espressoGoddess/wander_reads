@@ -6,7 +6,7 @@ import Book from "@/components/Book";
 import { BookType } from "@/types/types";
 import { useRouter } from "next/router";
 
-function getPageUrl(shelf) {
+function getPageUrl(shelf: string) {
   switch (shelf) {
     case "already_read":
       return "/bookshelf/already-read";
@@ -115,7 +115,7 @@ async function addBookToShelf(
       shelfType: shelf,
       cover: book.cover,
       description: book.description,
-      rating: rating,
+      rating: Math.round(rating / 10),
       review: review,
     }),
   });
