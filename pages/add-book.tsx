@@ -85,7 +85,7 @@ export default function AddBook() {
           variant="outlined"
           ripple={true}
           type="submit"
-          disabled={!shelf || (shelf === "already" && !review) || !rating}
+          disabled={!shelf || (shelf === "already_read" && !review) || !rating}
         >
           Add book
         </Button>
