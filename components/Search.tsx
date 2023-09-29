@@ -17,15 +17,19 @@ export default function Search() {
       if (isbnRegex.test(searchTerm.value)) {
         router.push(`/results?isbn=${encodeURIComponent(searchTerm.value)}`);
       } else {
-        console.log("isbn validation results:", isbnRegex.test(isbn));
+        setError(`'${searchTerm.value}' is not a valid ISBN`);
       }
     } else if (searchTerm.type && searchTerm.value) {
       router.push(
         `/results?${searchTerm.type}=${encodeURIComponent(searchTerm.value)}`
       );
+    } else if (!searchTerm.type && !searchTerm.value) {
+      setError("You must enter a search type and a value");
+    } else if (!searchTerm.value) {
+      setError(`Please enter ${getSnippet(searchTerm.type)}`);
+    } else if (!searchTerm.type) {
+      setError(`You must select a type for your search of ${searchTerm.value}`);
     }
-    //need some sort of error handling for if type & value are not both present & if isbn is not valid
-    //need to reset input fields
   };
 
   return (
@@ -69,6 +73,7 @@ export default function Search() {
         >
           Find Book
         </Button>
+        {error ? <p className="text-red-500">{error}</p> : null}
       </form>
     </section>
   );
