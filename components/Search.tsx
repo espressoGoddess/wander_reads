@@ -35,7 +35,7 @@ export default function Search() {
   return (
     <section>
       <form onSubmit={(e) => handleSubmit(e)} className="w-11/12 m-4 mt-14">
-        <div className="mt-16">
+        <div className="mt-16 mb-10">
           <Select
             onChange={(value) => {
               setSearchTerm((prevState) => ({
@@ -52,19 +52,21 @@ export default function Search() {
             <Option value="isbn">ISBN</Option>
           </Select>
         </div>
-        <Input
-          type="text"
-          id="search-term"
-          name="search-term"
-          value={searchTerm.value}
-          label={searchTerm.type || "Author, Title, or ISBN"}
-          onChange={(e) =>
-            setSearchTerm((prevState) => ({
-              ...prevState,
-              value: e.target.value,
-            }))
-          }
-        />
+        <div className="mt-6">
+          <Input
+            type="text"
+            id="search-term"
+            name="search-term"
+            value={searchTerm.value}
+            label={searchTerm.type || "Author, Title, or ISBN"}
+            onChange={(e) =>
+              setSearchTerm((prevState) => ({
+                ...prevState,
+                value: e.target.value,
+              }))
+            }
+          />
+        </div>
         <Button
           className="mt-10"
           variant="outlined"
