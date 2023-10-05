@@ -9,7 +9,9 @@ export default function AlreadyRead() {
   }, []);
   return books ? (
     <Shelf books={books} shelfType={"Books You've Already Read"} />
-  ) : null;
+  ) : (
+    <h1 className="text-2xl text-center">Loading...</h1>
+  );
 }
 
 export async function getBooks(shelf: string) {
