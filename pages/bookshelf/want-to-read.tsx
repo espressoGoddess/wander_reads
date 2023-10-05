@@ -10,6 +10,6 @@ export default function WantToRead() {
   return books ? (
     <Shelf books={books} shelfType={"Books You Want to Read"} />
   ) : (
-    <h1 className="text-2xl">Loading...</h1>
+    <h1 className="text-2xl text-center">Loading...</h1>
   );
 }
