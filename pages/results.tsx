@@ -7,15 +7,33 @@ import { useEffect, useState } from "react";
 export default function Results() {
   const { query } = useRouter();
   const [bookData, setBookData] = useState<SearchResult[]>([]);
+  const [noBooksFound, setNoBooksFound] = useState(false);
+
   useEffect(() => {
     searchAPI(
       query?.isbn as string,
       query?.author as string,
       query?.title as string
-    ).then((data) => setBookData(data));
+    ).then((data) => {
+      if (data.length) {
+        setBookData(data);
+      } else {
+        setNoBooksFound(true);
+      }
+    });
   }, [query]);
 
-  return bookData.length ? <SearchResults results={bookData} /> : null;
+  if (bookData.length) {
+    return <SearchResults results={bookData} />;
+  } else if (noBooksFound) {
+    return (
+      <h1 className="text-2xl text-center m-4">{`Sorry, no books matching '${
+        query?.isbn || query?.author || query?.title
+      }' were found 😿`}</h1>
+    );
+  } else {
+    return <h1 className="text-2xl text-center m-4">Loading...</h1>;
+  }
 }
 
 async function searchAPI(isbn: string, author: string, title: string) {
