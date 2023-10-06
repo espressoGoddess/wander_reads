@@ -17,7 +17,7 @@ export default function Shelf({ books, shelfType }: ShelfProps) {
   ));
   return (
     <section>
-      <h1 className="m-6">{shelfType}</h1>
+      <h1 className="m-6 text-2xl ">{shelfType}</h1>
       {formattedBooks.length ? (
         formattedBooks
       ) : (

@@ -3,7 +3,7 @@ import { Radio, Button, Textarea, Slider } from "@material-tailwind/react";
 import { BookContext } from "@/context/book";
 import { useContext } from "react";
 import Book from "@/components/Book";
-import { BookType } from "@/types/types";
+import { BaseBook } from "@/types/types";
 import { useRouter } from "next/router";
 
 function getPageUrl(shelf: string) {
@@ -85,7 +85,7 @@ export default function AddBook() {
           variant="outlined"
           ripple={true}
           type="submit"
-          disabled={!shelf || (shelf === "already" && !review) || !rating}
+          disabled={!shelf || (shelf === "already_read" && !review) || !rating}
         >
           Add book
         </Button>
@@ -102,7 +102,7 @@ function NoBookAvailable() {
 
 async function addBookToShelf(
   shelf: string,
-  book: BookType,
+  book: BaseBook,
   review?: string,
   rating?: number
 ) {

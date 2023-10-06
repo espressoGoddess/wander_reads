@@ -9,5 +9,7 @@ export default function WantToRead() {
   }, []);
   return books ? (
     <Shelf books={books} shelfType={"Books You Want to Read"} />
-  ) : null;
+  ) : (
+    <h1 className="text-2xl text-center">Loading...</h1>
+  );
 }
