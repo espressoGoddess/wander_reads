@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import Book from "./Book";
-import { BookContext } from "@/context/book";
-import { useContext } from "react";
-import { SearchResult } from "@/types/types";
+import { useRouter } from 'next/router';
+import Book from './Book';
+import { BookContext } from '@/context/book';
+import { useContext } from 'react';
+import { SearchResult } from '@/types/types';
 type SearchResultsProps = { results: SearchResult[] };
 
 export default function SearchResults({ results }: SearchResultsProps) {

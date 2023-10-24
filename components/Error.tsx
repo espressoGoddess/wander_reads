@@ -1,7 +1,7 @@
-import { Button } from "@material-tailwind/react";
-import catBook from "../public/cat-book.png";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import { Button } from '@material-tailwind/react';
+import catBook from '../public/cat-book.png';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export default function Error() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Error() {
       <div className="text-center">
         <h2 className="mt-2">This page appears to be sleeping...</h2>
         <Button
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
           className="mt-6"
           variant="outlined"
           ripple={true}

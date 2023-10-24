@@ -1,27 +1,27 @@
-import React, { FormEvent, useState } from "react";
-import { Radio, Button, Textarea, Slider } from "@material-tailwind/react";
-import { BookContext } from "@/context/book";
-import { useContext } from "react";
-import Book from "@/components/Book";
-import { BaseBook } from "@/types/types";
-import { useRouter } from "next/router";
+import React, { FormEvent, useState } from 'react';
+import { Radio, Button, Textarea, Slider } from '@material-tailwind/react';
+import { BookContext } from '@/context/book';
+import { useContext } from 'react';
+import Book from '@/components/Book';
+import { BaseBook } from '@/types/types';
+import { useRouter } from 'next/router';
 
 function getPageUrl(shelf: string) {
   switch (shelf) {
-    case "already_read":
-      return "/bookshelf/already-read";
-    case "want_to_read":
-      return "/bookshelf/want-to-read";
+    case 'already_read':
+      return '/bookshelf/already-read';
+    case 'want_to_read':
+      return '/bookshelf/want-to-read';
     default:
-      return "/404";
+      return '/404';
   }
 }
 
 export default function AddBook() {
-  const [shelf, setShelf] = useState("");
+  const [shelf, setShelf] = useState('');
   const { book } = useContext(BookContext);
   const [rating, setRating] = useState(50);
-  const [review, setReview] = useState("");
+  const [review, setReview] = useState('');
   const router = useRouter();
 
   const handleSubmit = (e: FormEvent) => {
@@ -48,16 +48,16 @@ export default function AddBook() {
             ripple={false}
             name="type"
             label="Already Read Shelf"
-            onChange={() => setShelf("already_read")}
+            onChange={() => setShelf('already_read')}
           />
           <Radio
             ripple={false}
             name="type"
             label="Want to Read Shelf"
-            onChange={() => setShelf("want_to_read")}
+            onChange={() => setShelf('want_to_read')}
           />
         </div>
-        {shelf === "already_read" ? (
+        {shelf === 'already_read' ? (
           <div className="mt-6">
             <div className="flex justify-between items-center">
               <div className="w-4/5">
@@ -85,7 +85,7 @@ export default function AddBook() {
           variant="outlined"
           ripple={true}
           type="submit"
-          disabled={!shelf || (shelf === "already_read" && !review) || !rating}
+          disabled={!shelf || (shelf === 'already_read' && !review) || !rating}
         >
           Add book
         </Button>
@@ -104,11 +104,11 @@ async function addBookToShelf(
   shelf: string,
   book: BaseBook,
   review?: string,
-  rating?: number
+  rating?: number,
 ) {
-  const res = await fetch("http://localhost:3001/api/v1/bookshelf", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
+  const res = await fetch('http://localhost:3001/api/v1/bookshelf', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       author: book.author,
       title: book.title,
