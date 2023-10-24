@@ -1,8 +1,8 @@
-import SearchResults from "@/components/SearchResults";
-import Shelf from "@/components/Shelf";
-import { SearchResult } from "@/types/types";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import SearchResults from '@/components/SearchResults';
+import Shelf from '@/components/Shelf';
+import { SearchResult } from '@/types/types';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function Results() {
   const { query } = useRouter();
@@ -13,7 +13,7 @@ export default function Results() {
     searchAPI(
       query?.isbn as string,
       query?.author as string,
-      query?.title as string
+      query?.title as string,
     ).then((data) => {
       if (data.length) {
         setBookData(data);
@@ -37,9 +37,9 @@ export default function Results() {
 }
 
 async function searchAPI(isbn: string, author: string, title: string) {
-  const res = await fetch("http://localhost:3001/api/v1/search", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
+  const res = await fetch('http://localhost:3001/api/v1/search', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ isbn, author, title }),
   });
   const data = await res.json();

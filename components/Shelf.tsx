@@ -1,5 +1,5 @@
-import Book from "./Book";
-import { BookType } from "@/types/types";
+import Book from './Book';
+import { BookType } from '@/types/types';
 
 type ShelfProps = { books: BookType[]; shelfType: string };
 

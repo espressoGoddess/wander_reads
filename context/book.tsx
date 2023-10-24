@@ -1,5 +1,5 @@
-import { BaseBook, BookType, SearchResult } from "@/types/types";
-import { createContext } from "react";
+import { BaseBook, BookType, SearchResult } from '@/types/types';
+import { createContext } from 'react';
 export type GenericBook = BaseBook | SearchResult | null;
 
 export const BookContext = createContext({

@@ -1,14 +1,14 @@
-import Image from "next/image";
-import Rating from "./Rating";
-import { BookType } from "@/types/types";
+import Image from 'next/image';
+import Rating from './Rating';
+import { BookType } from '@/types/types';
 
 export default function Book({
-  title = "No title found",
-  cover = "http://lgimages.s3.amazonaws.com/nc-md.gif",
-  author = "author not found",
-  description = "",
+  title = 'No title found',
+  cover = 'http://lgimages.s3.amazonaws.com/nc-md.gif',
+  author = 'author not found',
+  description = '',
   rating = 0,
-  review = "",
+  review = '',
 }: Partial<BookType>) {
   return (
     <article className="m-5 border rounded-sm p-4 flex flex-col">
@@ -36,7 +36,7 @@ export default function Book({
       </div>
       <p
         className={
-          review || description ? "mt-4 h-24 line-clamp-4 text-justify" : ""
+          review || description ? 'mt-4 h-24 line-clamp-4 text-justify' : ''
         }
       >
         {review ? review : description}

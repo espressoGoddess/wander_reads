@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Select, Option, Input, Button } from "@material-tailwind/react";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import { Select, Option, Input, Button } from '@material-tailwind/react';
+import { useRouter } from 'next/router';
 
 export default function Search() {
   const router = useRouter();
 
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState({ type: "", value: "" });
+  const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState({ type: '', value: '' });
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (searchTerm.type === "isbn" && searchTerm.value) {
+    if (searchTerm.type === 'isbn' && searchTerm.value) {
       const isbnRegex =
         /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
       //thank you Lokesh Gupta @ https://howtodoinjava.com/java/regex/java-regex-validate-international-standard-book-number-isbns/
@@ -21,10 +21,10 @@ export default function Search() {
       }
     } else if (searchTerm.type && searchTerm.value) {
       router.push(
-        `/results?${searchTerm.type}=${encodeURIComponent(searchTerm.value)}`
+        `/results?${searchTerm.type}=${encodeURIComponent(searchTerm.value)}`,
       );
     } else if (!searchTerm.type && !searchTerm.value) {
-      setError("You must enter a search type and a value");
+      setError('You must enter a search type and a value');
     } else if (!searchTerm.value) {
       setError(`Please enter ${getSnippet(searchTerm.type)}`);
     } else if (!searchTerm.type) {
@@ -40,7 +40,7 @@ export default function Search() {
             onChange={(value) => {
               setSearchTerm((prevState) => ({
                 ...prevState,
-                type: value ?? "",
+                type: value ?? '',
               }));
             }}
             value={searchTerm.type}
@@ -58,7 +58,7 @@ export default function Search() {
             id="search-term"
             name="search-term"
             value={searchTerm.value}
-            label={searchTerm.type || "Author, Title, or ISBN"}
+            label={searchTerm.type || 'Author, Title, or ISBN'}
             onChange={(e) =>
               setSearchTerm((prevState) => ({
                 ...prevState,
@@ -82,7 +82,7 @@ export default function Search() {
 }
 
 function getSnippet(type: string) {
-  if (type === "title") {
+  if (type === 'title') {
     return `a ${type}`;
   } else {
     return `an ${type}`;
